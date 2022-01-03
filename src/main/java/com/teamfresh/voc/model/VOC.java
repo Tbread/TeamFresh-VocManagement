@@ -43,9 +43,13 @@ public class VOC extends Timestamped {
     @Column(nullable = false)
     private boolean conclude;
 
+    //운송사 귀책일시, 입력될 기사의 pk
+    @Column
+    private Long driverId;
+
 
     @Builder
-    public VOC(responsibility responsibility, Long compensationAmount, String faultDetails) {
+    public VOC(responsibility responsibility, Long compensationAmount, String faultDetails,Long driverId) {
         this.responsibility = responsibility;
         this.compensationAmount = compensationAmount;
         this.faultDetails = faultDetails;
@@ -53,5 +57,6 @@ public class VOC extends Timestamped {
         this.conclude = false;
         // 귀책사 여부에 따른 default값 변경
         this.driversChk = !responsibility.toString().equals("DRIVERFAULT");
+        this.driverId = driverId;
     }
 }
