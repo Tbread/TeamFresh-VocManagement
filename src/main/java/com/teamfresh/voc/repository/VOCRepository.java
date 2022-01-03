@@ -7,4 +7,5 @@ import java.util.List;
 
 public interface VOCRepository extends JpaRepository<VOC,Long> {
     List<VOC> findAllByOrderByIdAsc();
+    VOC findByCompensationId(Long id);
 }

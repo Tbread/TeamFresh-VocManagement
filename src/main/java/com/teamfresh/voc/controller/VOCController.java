@@ -1,9 +1,7 @@
 package com.teamfresh.voc.controller;
 
 import com.teamfresh.voc.dto.request.WriteVOCRequestDto;
-import com.teamfresh.voc.dto.response.ViewVOCDetailsResponse;
-import com.teamfresh.voc.dto.response.ViewVOCListResponse;
-import com.teamfresh.voc.dto.response.WriteVOCResponseDto;
+import com.teamfresh.voc.dto.response.*;
 import com.teamfresh.voc.service.VOCService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.validation.BindingResult;
@@ -17,18 +15,28 @@ public class VOCController {
 
     private final VOCService vocService;
 
-    @PostMapping("/write")
-    public WriteVOCResponseDto write(@RequestBody @Valid WriteVOCRequestDto req, BindingResult bindingResult){
+    @PostMapping("/write-voc")
+    public WriteVOCResponseDto writeVoc(@RequestBody @Valid WriteVOCRequestDto req, BindingResult bindingResult){
         return vocService.write(req,bindingResult);
     }
 
-    @GetMapping("/view/{vocId}")
-    public ViewVOCDetailsResponse view(@PathVariable Long vocId){
+    @GetMapping("/view-voc/{vocId}")
+    public ViewVOCDetailsResponse viewVoc(@PathVariable Long vocId){
         return vocService.view(vocId);
     }
 
-    @GetMapping("/view")
-    public ViewVOCListResponse viewList(){
+    @GetMapping("/view-voc")
+    public ViewVOCListResponse viewVocList(){
         return vocService.viewList();
+    }
+
+    @GetMapping("view-comp/{compensationId}")
+    public ViewCompensationDetailsResponse viewComp(@PathVariable Long compensationId){
+        return vocService.viewComp(compensationId);
+    }
+
+    @GetMapping("/view-comp")
+    public ViewCompensationListResponse viewCompList(){
+        return vocService.viewCompList();
     }
 }

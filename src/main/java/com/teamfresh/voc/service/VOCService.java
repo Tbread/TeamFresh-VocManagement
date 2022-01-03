@@ -1,10 +1,9 @@
 package com.teamfresh.voc.service;
 
 import com.teamfresh.voc.dto.request.WriteVOCRequestDto;
-import com.teamfresh.voc.dto.response.ViewVOCDetailsResponse;
-import com.teamfresh.voc.dto.response.ViewVOCListResponse;
-import com.teamfresh.voc.dto.response.WriteVOCResponseDto;
+import com.teamfresh.voc.dto.response.*;
 import com.teamfresh.voc.model.Compensation;
+import com.teamfresh.voc.model.CompensationSimple;
 import com.teamfresh.voc.model.VOC;
 import com.teamfresh.voc.model.VOCSimple;
 import com.teamfresh.voc.repository.CompensationRepository;
@@ -113,5 +112,45 @@ public class VOCService {
         return res;
     }
 
+    // Compensation 은 VOC 에 종속되어있는 상태이므로 VOC 에서 처리함
+    // 배상 정보 상세 보기
+    public ViewCompensationDetailsResponse viewComp(Long id){
+        ViewCompensationDetailsResponse res;
+        Optional<Compensation> compensationOptional = compensationRepository.findById(id);
+        if(!compensationOptional.isPresent()){
+            res = ViewCompensationDetailsResponse.builder()
+                    .success(false)
+                    .message("존재하지 않는 배상정보입니다.")
+                    .build();
+        } else {
+            Compensation compensation = compensationOptional.get();
+            VOC voc = vocRepository.findByCompensationId(compensation.getId());
+            res = ViewCompensationDetailsResponse.builder()
+                    .message("성공적으로 불러왔습니다.")
+                    .success(true)
+                    .voc(voc)
+                    .build();
 
+        }
+        return res;
+    }
+
+    //배상 정보 간략 리스트 보기
+    public ViewCompensationListResponse viewCompList(){
+        ViewCompensationListResponse res;
+        List<Compensation> compensationList = compensationRepository.findAllByOrderByIdAsc();
+        List<CompensationSimple> compensationSimpleList = new ArrayList<>();
+        for (Compensation compensation : compensationList){
+            CompensationSimple compensationSimple = CompensationSimple.builder()
+                    .compensation(compensation)
+                    .build();
+            compensationSimpleList.add(compensationSimple);
+        }
+        res = ViewCompensationListResponse.builder()
+                .compensationSimpleList(compensationSimpleList)
+                .success(true)
+                .message("성공적으로 불러왔습니다.")
+                .build();
+        return res;
+    }
 }
