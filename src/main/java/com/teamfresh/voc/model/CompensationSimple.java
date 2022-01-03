@@ -11,7 +11,6 @@ public class CompensationSimple {
     private Long amount;
     private boolean checked;
     private boolean objection;
-    private boolean conclude;
 
     @Builder
     public CompensationSimple(Compensation compensation){
