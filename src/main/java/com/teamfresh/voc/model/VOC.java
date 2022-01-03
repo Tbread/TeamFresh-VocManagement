@@ -51,7 +51,7 @@ public class VOC extends Timestamped {
         this.faultDetails = faultDetails;
         this.objection = false;
         this.conclude = false;
-        this.driversChk = false;
+        // 귀책사 여부에 따른 default값 변경
         this.driversChk = !responsibility.toString().equals("DRIVERFAULT");
     }
 }
