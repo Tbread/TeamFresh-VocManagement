@@ -6,10 +6,7 @@ import com.teamfresh.voc.service.DriverService;
 import com.teamfresh.voc.service.userDetails.UserDetailsImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RequestMapping("/driver")
 @RequiredArgsConstructor
@@ -17,7 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class DriverController {
     private final DriverService driverService;
 
-    @GetMapping("/joinDrvier/{companyId}")
+    @PostMapping("/join-driver/{companyId}")
     public JoinDriverResponseDto joinDriver(@AuthenticationPrincipal UserDetailsImpl userDetails, @RequestParam Long companyId){
         return driverService.joinDriver(userDetails,companyId);
     }
