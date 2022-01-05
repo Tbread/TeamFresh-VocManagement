@@ -1,5 +1,8 @@
 package com.teamfresh.voc.util;
 
+import org.springframework.stereotype.Component;
+
+@Component
 public class MessageAssist {
     //테스트코드 및 서비스 메세지 작성 편의
     public String Success = "성공적으로 완료했습니다.";
@@ -13,5 +16,6 @@ public class MessageAssist {
     public String NoCompanyType = "회사 타입은 필수 입력 값입니다.";
     public String DupCompanyName = "이미 존재하는 회사이름입니다.";
     public String AlreadyHasCompany = "이미 회사에 등록되어있습니다.";
+    public String WrongCompanyId = "존재하지 않는 회사 ID입니다.";
 
 }
