@@ -1,6 +1,8 @@
 package com.teamfresh.voc.controller;
 
+import com.teamfresh.voc.dto.request.LoginRequestDto;
 import com.teamfresh.voc.dto.request.SignUpRequestDto;
+import com.teamfresh.voc.dto.response.LoginResponseDto;
 import com.teamfresh.voc.dto.response.SignUpResponseDto;
 import com.teamfresh.voc.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -22,5 +24,10 @@ public class UserController {
     @PostMapping("/register")
     public SignUpResponseDto register(@RequestBody @Valid SignUpRequestDto req, BindingResult bindingResult){
         return userService.register(req,bindingResult);
+    }
+
+    @PostMapping("/login")
+    public LoginResponseDto login(@RequestBody @Valid LoginRequestDto req,BindingResult bindingResult){
+        return userService.login(req,bindingResult);
     }
 }
