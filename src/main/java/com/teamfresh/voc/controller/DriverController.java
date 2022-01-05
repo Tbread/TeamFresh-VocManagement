@@ -15,7 +15,7 @@ public class DriverController {
     private final DriverService driverService;
 
     @PostMapping("/join-driver/{companyId}")
-    public JoinDriverResponseDto joinDriver(@AuthenticationPrincipal UserDetailsImpl userDetails, @RequestParam Long companyId){
+    public JoinDriverResponseDto joinDriver(@AuthenticationPrincipal UserDetailsImpl userDetails, @PathVariable Long companyId){
         return driverService.joinDriver(userDetails,companyId);
     }
 }
