@@ -27,6 +27,10 @@ public class User extends TimeStamped{
     @Column
     private Long ownCompany;
 
+    @OneToOne
+    @JoinColumn
+    private Driver driver;
+
     @Builder
     public User(String username,String password,Long companyId){
         this.username = username;
@@ -34,4 +38,15 @@ public class User extends TimeStamped{
         this.companyId = companyId;
     }
 
+    public void updateDriver(Driver driver){
+        this.driver = driver;
+    }
+
+    public void updateOwnCompany(Long ownCompany){
+        this.ownCompany = ownCompany;
+    }
+
+    public void updateCompanyId(Long companyId){
+        this.companyId = companyId;
+    }
 }

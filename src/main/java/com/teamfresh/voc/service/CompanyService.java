@@ -43,6 +43,7 @@ public class CompanyService {
                             .type(req.getType())
                             .build();
                     companyRepository.save(company);
+                    user.updateOwnCompany(company.getId());
                     res = AddCompanyResponseDto.builder()
                             .code(HttpServletResponse.SC_OK)
                             .message(msg.Success)
