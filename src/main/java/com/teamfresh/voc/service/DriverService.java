@@ -8,7 +8,6 @@ import com.teamfresh.voc.repository.UserRepository;
 import com.teamfresh.voc.service.userDetails.UserDetailsImpl;
 import com.teamfresh.voc.util.MessageAssist;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import com.teamfresh.voc.dto.response.JoinDriverResponseDto;
 
@@ -19,16 +18,14 @@ import java.util.Optional;
 @Service
 @RequiredArgsConstructor
 public class DriverService {
-    private UserRepository userRepository;
-    private MessageAssist ma;
-    private CompanyRepository companyRepository;
+    private final UserRepository userRepository;
+    private final MessageAssist ma;
+    private final CompanyRepository companyRepository;
 
     @Transactional
     public JoinDriverResponseDto joinDriver(UserDetailsImpl userDetails, Long companyId) {
         JoinDriverResponseDto res;
-        User user = userRepository.findByUsername(userDetails.getUsername()).orElseThrow(
-                () -> new UsernameNotFoundException("존재하지 않는 아이디입니다.")
-        );
+        User user = userDetails.getUser();
         if (user.getDriver() != null) {
             res = JoinDriverResponseDto.builder()
                     .code(HttpServletResponse.SC_BAD_REQUEST)
@@ -44,7 +41,6 @@ public class DriverService {
             } else {
                 user.updateCompany(companyOptional.get());
                 Driver driver = Driver.builder()
-                        .company(companyOptional.get())
                         .build();
                 user.updateDriver(driver);
                 res = JoinDriverResponseDto.builder()
