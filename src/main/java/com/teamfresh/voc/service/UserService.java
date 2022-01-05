@@ -28,7 +28,7 @@ public class UserService {
     private final UserRepository userRepository;
     private final AuthenticationManager authenticationManager;
     private final JwtTokenProvider jwtTokenProvider;
-    private final MessageAssist ma;
+    private final MessageAssist msg;
 
 
     //가입
@@ -46,7 +46,7 @@ public class UserService {
             if (userOptional.isPresent()) {
                 signUpResponseDto = SignUpResponseDto.builder()
                         .username(username)
-                        .message(ma.DupUsername)
+                        .message(msg.DupUsername)
                         .code(HttpServletResponse.SC_BAD_REQUEST)
                         .build();
             } else {
@@ -57,7 +57,7 @@ public class UserService {
                 userRepository.save(user);
                 signUpResponseDto = SignUpResponseDto.builder()
                         .username(username)
-                        .message(ma.Success)
+                        .message(msg.Success)
                         .code(HttpServletResponse.SC_OK)
                         .build();
             }
@@ -79,7 +79,7 @@ public class UserService {
             if (!userOptional.isPresent()) {
                 res = LoginResponseDto.builder()
                         .code(HttpServletResponse.SC_BAD_REQUEST)
-                        .message(ma.WrongUsernameOrPassword)
+                        .message(msg.WrongUsernameOrPassword)
                         .build();
             } else {
                 User user = userOptional.get();
@@ -87,7 +87,7 @@ public class UserService {
                 if (!passwordEncoder.matches(rawPassword, user.getPassword())) {
                     res = LoginResponseDto.builder()
                             .code(HttpServletResponse.SC_BAD_REQUEST)
-                            .message(ma.WrongUsernameOrPassword)
+                            .message(msg.WrongUsernameOrPassword)
                             .build();
                 } else {
                     Authentication usernamePassword = new UsernamePasswordAuthenticationToken(reqUsername, rawPassword);
@@ -98,7 +98,7 @@ public class UserService {
                             .code(HttpServletResponse.SC_OK)
                             .username(reqUsername)
                             .token(token)
-                            .message(ma.Success)
+                            .message(msg.Success)
                             .build();
                 }
             }
