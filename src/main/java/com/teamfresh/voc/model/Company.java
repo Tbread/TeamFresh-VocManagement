@@ -31,6 +31,7 @@ public class Company extends TimeStamped {
     private Long penalty;
 
     @Column(nullable = false)
+    @Enumerated(EnumType.STRING)
     private Company.type type;
 
 
