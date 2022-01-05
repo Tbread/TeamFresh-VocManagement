@@ -37,6 +37,7 @@ public class User extends TimeStamped {
 
     public void updateDriver(Driver driver) {
         this.driver = driver;
+        this.company = driver.getCompany();
     }
 
     public void updateCompany(Company company) {
