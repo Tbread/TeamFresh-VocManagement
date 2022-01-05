@@ -28,7 +28,7 @@ public class CompanyService {
         AddCompanyResponseDto res;
         String username = userDetails.getUsername();
         User user = userRepository.findByUsername(username).orElseThrow(() -> new UsernameNotFoundException("존재하지 않는 아이디입니다."));
-        if (user.getOwnCompany().equals(0L)) {
+        if (user.getCompany() == null) {
             if (bindingResult.hasErrors()) {
                 res = AddCompanyResponseDto.builder()
                         .code(HttpServletResponse.SC_BAD_REQUEST)
@@ -43,7 +43,7 @@ public class CompanyService {
                             .type(req.getType())
                             .build();
                     companyRepository.save(company);
-                    user.updateOwnCompany(company.getId());
+                    user.updateCompany(company);
                     res = AddCompanyResponseDto.builder()
                             .code(HttpServletResponse.SC_OK)
                             .message(msg.Success)
