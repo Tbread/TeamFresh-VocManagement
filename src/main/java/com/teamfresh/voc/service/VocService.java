@@ -2,6 +2,7 @@ package com.teamfresh.voc.service;
 
 import com.teamfresh.voc.dto.request.NewVocRequestDto;
 import com.teamfresh.voc.dto.response.NewVocResponseDto;
+import com.teamfresh.voc.dto.response.ViewVocListResponse;
 import com.teamfresh.voc.model.Company;
 import com.teamfresh.voc.model.Compensation;
 import com.teamfresh.voc.model.Voc;
@@ -58,6 +59,7 @@ public class VocService {
                             .details(req.getDetails())
                             .compensation(compensation)
                             .driverId(req.getDriverId())
+                            .companyId(req.getCompanyId())
                             .build();
                     vocRepository.save(voc);
                 } else {
@@ -66,6 +68,7 @@ public class VocService {
                             .responsibility(Voc.responsibility.SELLER)
                             .details(req.getDetails())
                             .compensation(compensation)
+                            .companyId(req.getCompanyId())
                             .build();
                     vocRepository.save(voc);
                 }
@@ -77,6 +80,14 @@ public class VocService {
             }
         }
         return res;
+    }
+
+    public ViewVocListResponse viewVocList(){
+        return ViewVocListResponse.builder()
+                .vocList(vocRepository.findAll())
+                .code(HttpServletResponse.SC_OK)
+                .message(ma.Success)
+                .build();
     }
 
 }

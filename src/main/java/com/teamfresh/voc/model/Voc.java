@@ -32,16 +32,19 @@ public class Voc extends TimeStamped {
 
     private Long driverId;
 
+    private Long companyId;
+
     @JsonBackReference
     @OneToOne
     @JoinColumn
     private Compensation compensation;
 
     @Builder
-    public Voc(String details, Voc.responsibility responsibility, Compensation compensation,Long driverId) {
+    public Voc(String details, Voc.responsibility responsibility, Compensation compensation,Long driverId,Long companyId) {
         this.responsibility = responsibility;
         this.details = details;
         this.compensation = compensation;
+        this.companyId = companyId;
         this.checked = false;
         this.objection = false;
         this.driverId = driverId;
