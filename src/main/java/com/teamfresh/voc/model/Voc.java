@@ -30,18 +30,21 @@ public class Voc extends TimeStamped {
 
     private boolean objection;
 
+    private Long driverId;
+
     @JsonBackReference
     @OneToOne
     @JoinColumn
     private Compensation compensation;
 
     @Builder
-    public Voc(String details, Voc.responsibility responsibility, Compensation compensation) {
+    public Voc(String details, Voc.responsibility responsibility, Compensation compensation,Long driverId) {
         this.responsibility = responsibility;
         this.details = details;
         this.compensation = compensation;
         this.checked = false;
         this.objection = false;
+        this.driverId = driverId;
     }
 
     public void updateObjection(){

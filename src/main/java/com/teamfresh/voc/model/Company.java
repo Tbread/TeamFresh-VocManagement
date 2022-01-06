@@ -43,4 +43,8 @@ public class Company extends TimeStamped {
         this.type = type;
         this.penalty = 0L;
     }
+
+    public void updatePenalty(Long penalty){
+        this.penalty = this.getPenalty() + penalty;
+    }
 }
