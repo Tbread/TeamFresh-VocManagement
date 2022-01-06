@@ -18,4 +18,5 @@ public class MessageAssist {
     public String AlreadyHasCompany = "이미 회사에 등록되어있습니다.";
     public String WrongCompanyId = "존재하지 않는 회사 ID입니다.";
     public String WrongCompensationId = "존재하지 않는 배상 정보입니다.";
+    public String NotDriver = "운송 기사로 등록된 유저만 가능합니다.";
 }

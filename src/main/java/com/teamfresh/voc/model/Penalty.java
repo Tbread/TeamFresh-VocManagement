@@ -17,13 +17,13 @@ public class Penalty extends TimeStamped{
 
     private Long amount;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn
     private Driver driver;
 
     private boolean objection;
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @OneToOne
     @JoinColumn
     private Compensation compensation;
 

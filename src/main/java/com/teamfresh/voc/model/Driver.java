@@ -29,4 +29,8 @@ public class Driver {
         this.penalty = 0L;
     }
 
+    public void updatePenalty(Penalty penalty){
+        this.penalty = this.penalty + penalty.getAmount();
+    }
+
 }

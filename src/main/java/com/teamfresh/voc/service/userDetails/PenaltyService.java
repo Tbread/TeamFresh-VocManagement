@@ -1,6 +1,7 @@
 package com.teamfresh.voc.service.userDetails;
 
 import com.teamfresh.voc.dto.response.HandlingPenaltyResponseDto;
+import com.teamfresh.voc.dto.response.ViewPenaltyListResponseDto;
 import com.teamfresh.voc.model.*;
 import com.teamfresh.voc.repository.CompanyRepository;
 import com.teamfresh.voc.repository.CompensationRepository;
@@ -13,6 +14,7 @@ import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.transaction.Transactional;
+import java.util.List;
 import java.util.Optional;
 
 @RequiredArgsConstructor
@@ -69,5 +71,28 @@ public class PenaltyService {
                 .compensation(compensation)
                 .driver(driver)
                 .build();
+    }
+
+    @Transactional
+    public ViewPenaltyListResponseDto viewPenalty(UserDetailsImpl userDetails){
+        ViewPenaltyListResponseDto res;
+        User user = userDetails.getUser();
+        if(user.getDriver() == null){
+            res = ViewPenaltyListResponseDto.builder()
+                    .code(HttpServletResponse.SC_BAD_REQUEST)
+                    .message(ma.NotDriver)
+                    .build();
+        } else {
+            List<Penalty> penaltyList = penaltyRepository.findAllByDriverId(user.getDriver().getId());
+            for(Penalty penalty:penaltyList){
+                penalty.getCompensation().getVoc().updateChecked();
+            }
+            res = ViewPenaltyListResponseDto.builder()
+                    .code(HttpServletResponse.SC_OK)
+                    .message(ma.Success)
+                    .penaltyList(penaltyList)
+                    .build();
+        }
+        return res;
     }
 }
