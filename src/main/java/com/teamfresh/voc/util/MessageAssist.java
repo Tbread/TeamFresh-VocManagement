@@ -20,6 +20,6 @@ public class MessageAssist {
     public String WrongCompensationId = "존재하지 않는 배상 정보입니다.";
     public String NotDriver = "운송 기사로 등록된 유저만 가능합니다.";
     public String WrongPenaltyId = "존재하지 않는 패널티입니다.";
-    public String NotPenaltyOwner = "자신의 패널티에만 이의를 제기할수있습니다.";
+    public String NotPenaltyOwner = "자신의 패널티에만 접근할수 있습니다.";
     public String AlreadyObjection = "이미 이의를 제기한 패널티입니다.";
 }

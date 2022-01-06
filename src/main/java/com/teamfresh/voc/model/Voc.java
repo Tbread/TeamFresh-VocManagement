@@ -60,4 +60,8 @@ public class Voc extends TimeStamped {
     public void updateChecked(){
         this.checked = true;
     }
+
+    public void updateConclude() {
+        this.conclude = true;
+    }
 }

@@ -1,5 +1,6 @@
 package com.teamfresh.voc.controller;
 
+import com.teamfresh.voc.dto.response.AdmitPenaltyResponseDto;
 import com.teamfresh.voc.dto.response.HandlingPenaltyResponseDto;
 import com.teamfresh.voc.dto.response.ObjectionPenaltyResponseDto;
 import com.teamfresh.voc.dto.response.ViewPenaltyListResponseDto;
@@ -30,5 +31,10 @@ public class PenaltyController {
     @PostMapping("/objection/{penaltyId}")
     public ObjectionPenaltyResponseDto objectionPenalty(@AuthenticationPrincipal UserDetailsImpl userDetails,@PathVariable Long penaltyId){
         return penaltyService.objectionPenalty(userDetails,penaltyId);
+    }
+
+    @PostMapping("/admit/{penaltyId}")
+    public AdmitPenaltyResponseDto admitPenalty(@AuthenticationPrincipal UserDetailsImpl userDetails,@PathVariable Long penaltyId){
+        return penaltyService.admitPenalty(userDetails,penaltyId);
     }
 }

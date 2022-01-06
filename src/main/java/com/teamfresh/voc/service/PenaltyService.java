@@ -1,5 +1,6 @@
 package com.teamfresh.voc.service;
 
+import com.teamfresh.voc.dto.response.AdmitPenaltyResponseDto;
 import com.teamfresh.voc.dto.response.HandlingPenaltyResponseDto;
 import com.teamfresh.voc.dto.response.ObjectionPenaltyResponseDto;
 import com.teamfresh.voc.dto.response.ViewPenaltyListResponseDto;
@@ -131,6 +132,37 @@ public class PenaltyService {
                             .message(ma.Success)
                             .build();
                 }
+            }
+        }
+        return res;
+    }
+
+    @Transactional
+    public AdmitPenaltyResponseDto admitPenalty(UserDetailsImpl userDetails,Long penaltyId){
+        AdmitPenaltyResponseDto res;
+        Optional<Penalty> penaltyOptional = penaltyRepository.findById(penaltyId);
+        if(!penaltyOptional.isPresent()){
+            res = AdmitPenaltyResponseDto.builder()
+                    .code(HttpServletResponse.SC_BAD_REQUEST)
+                    .message(ma.WrongPenaltyId)
+                    .build();
+        } else {
+            Long thisId = userDetails.getUser().getDriver().getId();
+            Long ownerId = penaltyOptional.get().getCompensation().getVoc().getDriverId();
+            if (!thisId.equals(ownerId)){
+                res = AdmitPenaltyResponseDto.builder()
+                        .code(HttpServletResponse.SC_BAD_REQUEST)
+                        .message(ma.NotPenaltyOwner)
+                        .build();
+            } else {
+                //voc 종결
+                penaltyOptional.get().getCompensation().getVoc().updateConclude();
+                penaltyOptional.get().getDriver().updatePenalty(penaltyOptional.get());
+                res = AdmitPenaltyResponseDto.builder()
+                        .code(HttpServletResponse.SC_OK)
+                        .message(ma.Success)
+                        .penaltyTotal(userDetails.getUser().getDriver().getPenalty())
+                        .build();
             }
         }
         return res;
