@@ -23,11 +23,16 @@ public class Penalty extends TimeStamped{
 
     private boolean objection;
 
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn
+    private Compensation compensation;
+
     @Builder
-    public Penalty(Long amount,Driver driver){
+    public Penalty(Long amount,Driver driver,Compensation compensation){
         this.amount = amount;
         this.driver = driver;
         this.objection = false;
+        this.compensation = compensation;
     }
 
     public void updateObjection(){
