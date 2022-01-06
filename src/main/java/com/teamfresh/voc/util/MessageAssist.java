@@ -17,5 +17,5 @@ public class MessageAssist {
     public String DupCompanyName = "이미 존재하는 회사이름입니다.";
     public String AlreadyHasCompany = "이미 회사에 등록되어있습니다.";
     public String WrongCompanyId = "존재하지 않는 회사 ID입니다.";
-
+    public String WrongCompensationId = "존재하지 않는 배상 정보입니다.";
 }

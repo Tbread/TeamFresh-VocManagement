@@ -3,12 +3,10 @@ package com.teamfresh.voc.service;
 import com.teamfresh.voc.dto.request.NewVocRequestDto;
 import com.teamfresh.voc.dto.response.NewVocResponseDto;
 import com.teamfresh.voc.dto.response.ViewVocListResponseDto;
-import com.teamfresh.voc.model.Company;
-import com.teamfresh.voc.model.Compensation;
-import com.teamfresh.voc.model.SimpleVoc;
-import com.teamfresh.voc.model.Voc;
+import com.teamfresh.voc.model.*;
 import com.teamfresh.voc.repository.CompanyRepository;
 import com.teamfresh.voc.repository.CompensationRepository;
+import com.teamfresh.voc.repository.DriverRepository;
 import com.teamfresh.voc.repository.VocRepository;
 import com.teamfresh.voc.util.MessageAssist;
 import lombok.RequiredArgsConstructor;
@@ -28,6 +26,7 @@ public class VocService {
     private final VocRepository vocRepository;
     private final CompanyRepository companyRepository;
     private final CompensationRepository compensationRepository;
+    private final DriverRepository driverRepository;
 
     @Transactional
     public NewVocResponseDto newVoc(NewVocRequestDto req, BindingResult bindingResult) {
