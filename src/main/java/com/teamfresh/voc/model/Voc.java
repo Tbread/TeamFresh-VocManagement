@@ -39,6 +39,8 @@ public class Voc extends TimeStamped {
     @JoinColumn
     private Compensation compensation;
 
+    private boolean conclude;
+
     @Builder
     public Voc(String details, Voc.responsibility responsibility, Compensation compensation,Long driverId,Long companyId) {
         this.responsibility = responsibility;
@@ -48,6 +50,7 @@ public class Voc extends TimeStamped {
         this.checked = false;
         this.objection = false;
         this.driverId = driverId;
+        this.conclude = false;
     }
 
     public void updateObjection(){

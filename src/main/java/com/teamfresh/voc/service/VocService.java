@@ -100,6 +100,7 @@ public class VocService {
                         .objection(voc.isObjection())
                         .details(voc.getDetails())
                         .responsibility(voc.getResponsibility())
+                        .conclude(voc.isConclude())
                         .build();
                 simpleVocList.add(simpleVoc);
             } else {
@@ -114,6 +115,7 @@ public class VocService {
                         .objection(voc.isObjection())
                         .details(voc.getDetails())
                         .responsibility(voc.getResponsibility())
+                        .conclude(voc.isConclude())
                         .build();
                 simpleVocList.add(simpleVoc);
             }

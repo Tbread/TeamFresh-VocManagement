@@ -16,6 +16,7 @@ public class SimpleVoc {
     private Long companyId;
     private Long compensationId;
     private Long compensationAmount;
+    private boolean conclude;
 
     @Builder
     public SimpleVoc(Long vocId,
@@ -26,7 +27,8 @@ public class SimpleVoc {
                      Long driverId,
                      Long companyId,
                      Long compensationId,
-                     Long compensationAmount){
+                     Long compensationAmount,
+                     boolean conclude){
         this.vocId =vocId;
         this.details = details;
         this.responsibility =responsibility;
@@ -36,5 +38,6 @@ public class SimpleVoc {
         this.companyId = companyId;
         this.compensationAmount = compensationAmount;
         this.compensationId = compensationId;
+        this.conclude = conclude;
     }
 }
