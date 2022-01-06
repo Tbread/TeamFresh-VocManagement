@@ -10,13 +10,13 @@ import java.util.List;
 
 @NoArgsConstructor
 @Getter
-public class ViewVocListResponse {
+public class ViewVocListResponseDto {
     private int code;
     private String message;
     private List<SimpleVoc> vocList;
 
     @Builder
-    public ViewVocListResponse(int code, String message, List<SimpleVoc> vocList) {
+    public ViewVocListResponseDto(int code, String message, List<SimpleVoc> vocList) {
         this.code = code;
         this.message = message;
         this.vocList = vocList;

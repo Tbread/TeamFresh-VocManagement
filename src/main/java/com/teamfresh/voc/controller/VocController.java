@@ -2,7 +2,7 @@ package com.teamfresh.voc.controller;
 
 import com.teamfresh.voc.dto.request.NewVocRequestDto;
 import com.teamfresh.voc.dto.response.NewVocResponseDto;
-import com.teamfresh.voc.dto.response.ViewVocListResponse;
+import com.teamfresh.voc.dto.response.ViewVocListResponseDto;
 import com.teamfresh.voc.service.VocService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.validation.BindingResult;
@@ -22,7 +22,7 @@ public class VocController {
     }
 
     @GetMapping("/view")
-    public ViewVocListResponse viewVocList(){
+    public ViewVocListResponseDto viewVocList(){
         return vocService.viewVocList();
     }
 }

@@ -2,7 +2,7 @@ package com.teamfresh.voc.service;
 
 import com.teamfresh.voc.dto.request.NewVocRequestDto;
 import com.teamfresh.voc.dto.response.NewVocResponseDto;
-import com.teamfresh.voc.dto.response.ViewVocListResponse;
+import com.teamfresh.voc.dto.response.ViewVocListResponseDto;
 import com.teamfresh.voc.model.Company;
 import com.teamfresh.voc.model.Compensation;
 import com.teamfresh.voc.model.SimpleVoc;
@@ -85,8 +85,8 @@ public class VocService {
         return res;
     }
 
-    public ViewVocListResponse viewVocList() {
-        ViewVocListResponse res;
+    public ViewVocListResponseDto viewVocList() {
+        ViewVocListResponseDto res;
         List<SimpleVoc> simpleVocList = new ArrayList<>();
         List<Voc> vocList = vocRepository.findAll();
         for (Voc voc : vocList) {
@@ -118,7 +118,7 @@ public class VocService {
                 simpleVocList.add(simpleVoc);
             }
         }
-        res = ViewVocListResponse.builder()
+        res = ViewVocListResponseDto.builder()
                 .vocList(simpleVocList)
                 .code(HttpServletResponse.SC_OK)
                 .message(ma.Success)
