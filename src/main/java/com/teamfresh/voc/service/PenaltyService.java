@@ -65,6 +65,8 @@ public class PenaltyService {
         // Company 객체에 즉시 적용
         Company company = companyRepository.findById(compensation.getVoc().getCompanyId()).orElseThrow(() -> new UsernameNotFoundException("존재하지 않는 회사입니다."));
         company.updatePenalty(compensation.getAmount());
+        // 종결여부 변경
+        compensation.getVoc().updateConclude();
     }
 
     public Penalty driverFault(Compensation compensation, Driver driver) {
