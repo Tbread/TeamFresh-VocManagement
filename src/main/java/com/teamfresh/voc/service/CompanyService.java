@@ -6,6 +6,7 @@ import com.teamfresh.voc.model.Company;
 import com.teamfresh.voc.model.User;
 import com.teamfresh.voc.repository.CompanyRepository;
 import com.teamfresh.voc.repository.UserRepository;
+import com.teamfresh.voc.repository.querydsl.UserQueryRepository;
 import com.teamfresh.voc.service.userDetails.UserDetailsImpl;
 import com.teamfresh.voc.util.MessageAssist;
 import lombok.RequiredArgsConstructor;
@@ -21,13 +22,13 @@ import javax.transaction.Transactional;
 public class CompanyService {
     private final CompanyRepository companyRepository;
     private final MessageAssist msg;
-    private final UserRepository userRepository;
+    private final UserQueryRepository userQueryRepository;
 
     @Transactional
     public AddCompanyResponseDto addCompany(UserDetailsImpl userDetails, AddCompanyRequestDto req, BindingResult bindingResult) {
         AddCompanyResponseDto res;
         String username = userDetails.getUsername();
-        User user = userRepository.findByUsername(username).orElseThrow(() -> new UsernameNotFoundException("존재하지 않는 아이디입니다."));
+        User user = userQueryRepository.findByUsername(username).orElseThrow(() -> new UsernameNotFoundException("존재하지 않는 아이디입니다."));
         if (user.getCompany() == null) {
             if (bindingResult.hasErrors()) {
                 res = AddCompanyResponseDto.builder()

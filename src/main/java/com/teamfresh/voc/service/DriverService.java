@@ -6,6 +6,7 @@ import com.teamfresh.voc.model.User;
 import com.teamfresh.voc.repository.CompanyRepository;
 import com.teamfresh.voc.repository.DriverRepository;
 import com.teamfresh.voc.repository.UserRepository;
+import com.teamfresh.voc.repository.querydsl.UserQueryRepository;
 import com.teamfresh.voc.service.userDetails.UserDetailsImpl;
 import com.teamfresh.voc.util.MessageAssist;
 import lombok.RequiredArgsConstructor;
@@ -20,7 +21,7 @@ import java.util.Optional;
 @Service
 @RequiredArgsConstructor
 public class DriverService {
-    private final UserRepository userRepository;
+    private final UserQueryRepository userQueryRepository;
     private final MessageAssist ma;
     private final CompanyRepository companyRepository;
     private final DriverRepository driverRepository;
@@ -28,7 +29,7 @@ public class DriverService {
     @Transactional
     public JoinDriverResponseDto joinDriver(UserDetailsImpl userDetails, Long companyId) {
         JoinDriverResponseDto res;
-        User user = userRepository.findByUsername(userDetails.getUsername()).orElseThrow(()-> new UsernameNotFoundException("존재하지 않는 유저입니다."));
+        User user = userQueryRepository.findByUsername(userDetails.getUsername()).orElseThrow(()-> new UsernameNotFoundException("존재하지 않는 유저입니다."));
         if (user.getDriver() != null) {
             res = JoinDriverResponseDto.builder()
                     .code(HttpServletResponse.SC_BAD_REQUEST)

@@ -7,6 +7,7 @@ import com.teamfresh.voc.dto.response.SignUpResponseDto;
 import com.teamfresh.voc.jwt.JwtTokenProvider;
 import com.teamfresh.voc.model.User;
 import com.teamfresh.voc.repository.UserRepository;
+import com.teamfresh.voc.repository.querydsl.UserQueryRepository;
 import com.teamfresh.voc.util.MessageAssist;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -26,6 +27,7 @@ import java.util.Optional;
 public class UserService {
     private final PasswordEncoder passwordEncoder;
     private final UserRepository userRepository;
+    private final UserQueryRepository userQueryRepository;
     private final AuthenticationManager authenticationManager;
     private final JwtTokenProvider jwtTokenProvider;
     private final MessageAssist msg;
@@ -42,7 +44,7 @@ public class UserService {
                     .build();
         } else {
             String username = req.getUsername();
-            Optional<User> userOptional = userRepository.findByUsername(username);
+            Optional<User> userOptional = userQueryRepository.findByUsername(username);
             if (userOptional.isPresent()) {
                 signUpResponseDto = SignUpResponseDto.builder()
                         .username(username)
@@ -75,7 +77,7 @@ public class UserService {
                     .build();
         } else {
             String reqUsername = req.getUsername();
-            Optional<User> userOptional = userRepository.findByUsername(reqUsername);
+            Optional<User> userOptional = userQueryRepository.findByUsername(reqUsername);
             if (!userOptional.isPresent()) {
                 res = LoginResponseDto.builder()
                         .code(HttpServletResponse.SC_BAD_REQUEST)
