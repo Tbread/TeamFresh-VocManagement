@@ -9,6 +9,7 @@ import com.teamfresh.voc.repository.CompensationRepository;
 import com.teamfresh.voc.repository.DriverRepository;
 import com.teamfresh.voc.repository.VocRepository;
 import com.teamfresh.voc.repository.querydsl.CompanyQueryRepository;
+import com.teamfresh.voc.repository.querydsl.VocQueryRepository;
 import com.teamfresh.voc.util.MessageAssist;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -24,6 +25,7 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class VocService {
     private final MessageAssist ma;
+    private final VocQueryRepository vocQueryRepository;
     private final VocRepository vocRepository;
     private final CompanyQueryRepository companyQueryRepository;
     private final CompensationRepository compensationRepository;
@@ -87,7 +89,7 @@ public class VocService {
     public ViewVocListResponseDto viewVocList() {
         ViewVocListResponseDto res;
         List<SimpleVoc> simpleVocList = new ArrayList<>();
-        List<Voc> vocList = vocRepository.findAll();
+        List<Voc> vocList = vocQueryRepository.findAll();
         for (Voc voc : vocList) {
             if (voc.getCompensation() == null) {
                 // 배상요구가 없을경우
