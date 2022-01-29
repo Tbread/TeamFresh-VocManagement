@@ -6,6 +6,7 @@ import com.teamfresh.voc.model.Company;
 import com.teamfresh.voc.model.User;
 import com.teamfresh.voc.repository.CompanyRepository;
 import com.teamfresh.voc.repository.UserRepository;
+import com.teamfresh.voc.repository.querydsl.CompanyQueryRepository;
 import com.teamfresh.voc.repository.querydsl.UserQueryRepository;
 import com.teamfresh.voc.service.userDetails.UserDetailsImpl;
 import com.teamfresh.voc.util.MessageAssist;
@@ -20,6 +21,7 @@ import javax.transaction.Transactional;
 @Service
 @RequiredArgsConstructor
 public class CompanyService {
+    private final CompanyQueryRepository companyQueryRepository;
     private final CompanyRepository companyRepository;
     private final MessageAssist msg;
     private final UserQueryRepository userQueryRepository;
@@ -36,7 +38,7 @@ public class CompanyService {
                         .message(bindingResult.getAllErrors().get(0).getDefaultMessage())
                         .build();
             } else {
-                if (!companyRepository.findByCompanyName(req.getCompanyName()).isPresent()) {
+                if (!companyQueryRepository.findByCompanyName(req.getCompanyName()).isPresent()) {
                     Company company = Company.builder()
                             .companyName(req.getCompanyName())
                             .contactEmail(req.getContactEmail())

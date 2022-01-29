@@ -6,6 +6,7 @@ import com.teamfresh.voc.model.User;
 import com.teamfresh.voc.repository.CompanyRepository;
 import com.teamfresh.voc.repository.DriverRepository;
 import com.teamfresh.voc.repository.UserRepository;
+import com.teamfresh.voc.repository.querydsl.CompanyQueryRepository;
 import com.teamfresh.voc.repository.querydsl.UserQueryRepository;
 import com.teamfresh.voc.service.userDetails.UserDetailsImpl;
 import com.teamfresh.voc.util.MessageAssist;
@@ -23,7 +24,7 @@ import java.util.Optional;
 public class DriverService {
     private final UserQueryRepository userQueryRepository;
     private final MessageAssist ma;
-    private final CompanyRepository companyRepository;
+    private final CompanyQueryRepository companyQueryRepository;
     private final DriverRepository driverRepository;
 
     @Transactional
@@ -36,7 +37,7 @@ public class DriverService {
                     .message(ma.AlreadyHasCompany)
                     .build();
         } else {
-            Optional<Company> companyOptional = companyRepository.findById(companyId);
+            Optional<Company> companyOptional = companyQueryRepository.findById(companyId);
             if(!companyOptional.isPresent()){
                 res = JoinDriverResponseDto.builder()
                         .message(ma.WrongCompanyId)

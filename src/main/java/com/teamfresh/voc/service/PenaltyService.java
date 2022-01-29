@@ -9,6 +9,7 @@ import com.teamfresh.voc.repository.CompanyRepository;
 import com.teamfresh.voc.repository.CompensationRepository;
 import com.teamfresh.voc.repository.DriverRepository;
 import com.teamfresh.voc.repository.PenaltyRepository;
+import com.teamfresh.voc.repository.querydsl.CompanyQueryRepository;
 import com.teamfresh.voc.service.userDetails.UserDetailsImpl;
 import com.teamfresh.voc.util.MessageAssist;
 import lombok.RequiredArgsConstructor;
@@ -28,7 +29,7 @@ public class PenaltyService {
     private final CompensationRepository compensationRepository;
     private final MessageAssist ma;
     private final DriverRepository driverRepository;
-    private final CompanyRepository companyRepository;
+    private final CompanyQueryRepository companyQueryRepository;
 
     @Transactional
     public HandlingPenaltyResponseDto handlingPenalty(Long compensationId) {
@@ -63,7 +64,7 @@ public class PenaltyService {
     public void sellerFault(Compensation compensation) {
         // 고객사 귀책
         // Company 객체에 즉시 적용
-        Company company = companyRepository.findById(compensation.getVoc().getCompanyId()).orElseThrow(() -> new UsernameNotFoundException("존재하지 않는 회사입니다."));
+        Company company = companyQueryRepository.findById(compensation.getVoc().getCompanyId()).orElseThrow(() -> new UsernameNotFoundException("존재하지 않는 회사입니다."));
         company.updatePenalty(compensation.getAmount());
         // 종결여부 변경
         compensation.getVoc().updateConclude();

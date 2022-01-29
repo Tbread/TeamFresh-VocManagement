@@ -8,6 +8,7 @@ import com.teamfresh.voc.repository.CompanyRepository;
 import com.teamfresh.voc.repository.CompensationRepository;
 import com.teamfresh.voc.repository.DriverRepository;
 import com.teamfresh.voc.repository.VocRepository;
+import com.teamfresh.voc.repository.querydsl.CompanyQueryRepository;
 import com.teamfresh.voc.util.MessageAssist;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -24,7 +25,7 @@ import java.util.Optional;
 public class VocService {
     private final MessageAssist ma;
     private final VocRepository vocRepository;
-    private final CompanyRepository companyRepository;
+    private final CompanyQueryRepository companyQueryRepository;
     private final CompensationRepository compensationRepository;
     private final DriverRepository driverRepository;
 
@@ -40,7 +41,7 @@ public class VocService {
                     .build();
         } else {
             Long companyId = req.getCompanyId();
-            Optional<Company> companyOptional = companyRepository.findById(companyId);
+            Optional<Company> companyOptional = companyQueryRepository.findById(companyId);
             if (!companyOptional.isPresent()) {
                 res = NewVocResponseDto.builder()
                         .code(HttpServletResponse.SC_BAD_REQUEST)
