@@ -1,12 +1,12 @@
 # VocManagement
 
-2022년 1월 7일 기준
+2022년 1월 30일 기준
 
 http://34.64.84.146:8989
 
 에서 테스트 가능하며
 
-해당 프로젝트 소스이용시 application.properties 에서db 경로와 db 사용자이름,암호를 입력해야 합니다.
+해당 프로젝트 소스이용시 application.properties 에서 db 경로와 db 사용자이름,암호를 입력해야 합니다.
 
 ## DB설계
 
