@@ -5,11 +5,11 @@ import com.teamfresh.voc.dto.response.HandlingPenaltyResponseDto;
 import com.teamfresh.voc.dto.response.ObjectionPenaltyResponseDto;
 import com.teamfresh.voc.dto.response.ViewPenaltyListResponseDto;
 import com.teamfresh.voc.model.*;
-import com.teamfresh.voc.repository.CompanyRepository;
 import com.teamfresh.voc.repository.CompensationRepository;
 import com.teamfresh.voc.repository.DriverRepository;
 import com.teamfresh.voc.repository.PenaltyRepository;
 import com.teamfresh.voc.repository.querydsl.CompanyQueryRepository;
+import com.teamfresh.voc.repository.querydsl.DriverQueryRepository;
 import com.teamfresh.voc.service.userDetails.UserDetailsImpl;
 import com.teamfresh.voc.util.MessageAssist;
 import lombok.RequiredArgsConstructor;
@@ -28,7 +28,7 @@ public class PenaltyService {
     private final PenaltyRepository penaltyRepository;
     private final CompensationRepository compensationRepository;
     private final MessageAssist ma;
-    private final DriverRepository driverRepository;
+    private final DriverQueryRepository driverQueryRepository;
     private final CompanyQueryRepository companyQueryRepository;
 
     @Transactional
@@ -47,7 +47,7 @@ public class PenaltyService {
                 sellerFault(compensationOptional.get());
             } else {
                 // 운송사 귀책일경우
-                Driver driver = driverRepository.findById(compensationOptional.get().getVoc().getDriverId()).orElseThrow(() -> new UsernameNotFoundException("존재하지 않는 기사 ID입니다."));
+                Driver driver = driverQueryRepository.findById(compensationOptional.get().getVoc().getDriverId()).orElseThrow(() -> new UsernameNotFoundException("존재하지 않는 기사 ID입니다."));
                 penalty = driverFault(compensationOptional.get(), driver);
                 penaltyRepository.save(penalty);
             }
