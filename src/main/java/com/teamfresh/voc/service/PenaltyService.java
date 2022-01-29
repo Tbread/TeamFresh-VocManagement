@@ -6,7 +6,6 @@ import com.teamfresh.voc.dto.response.ObjectionPenaltyResponseDto;
 import com.teamfresh.voc.dto.response.ViewPenaltyListResponseDto;
 import com.teamfresh.voc.model.*;
 import com.teamfresh.voc.repository.CompensationRepository;
-import com.teamfresh.voc.repository.DriverRepository;
 import com.teamfresh.voc.repository.PenaltyRepository;
 import com.teamfresh.voc.repository.querydsl.CompanyQueryRepository;
 import com.teamfresh.voc.repository.querydsl.DriverQueryRepository;
@@ -92,7 +91,7 @@ public class PenaltyService {
                     .message(ma.NotDriver)
                     .build();
         } else {
-            List<Penalty> penaltyList = penaltyRepository.findAllByDriverId(user.getDriver().getId());
+            List<Penalty> penaltyList = penaltyQueryRepository.findAllByDriverId(user.getDriver().getId());
             for (Penalty penalty : penaltyList) {
                 penalty.getCompensation().getVoc().updateChecked();
             }
