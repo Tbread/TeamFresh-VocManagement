@@ -10,6 +10,7 @@ import com.teamfresh.voc.repository.DriverRepository;
 import com.teamfresh.voc.repository.PenaltyRepository;
 import com.teamfresh.voc.repository.querydsl.CompanyQueryRepository;
 import com.teamfresh.voc.repository.querydsl.DriverQueryRepository;
+import com.teamfresh.voc.repository.querydsl.PenaltyQueryRepository;
 import com.teamfresh.voc.service.userDetails.UserDetailsImpl;
 import com.teamfresh.voc.util.MessageAssist;
 import lombok.RequiredArgsConstructor;
@@ -25,6 +26,7 @@ import java.util.Optional;
 @Service
 public class PenaltyService {
 
+    private final PenaltyQueryRepository penaltyQueryRepository;
     private final PenaltyRepository penaltyRepository;
     private final CompensationRepository compensationRepository;
     private final MessageAssist ma;
@@ -106,7 +108,7 @@ public class PenaltyService {
     @Transactional
     public ObjectionPenaltyResponseDto objectionPenalty(UserDetailsImpl userDetails, Long penaltyId) {
         ObjectionPenaltyResponseDto res;
-        Optional<Penalty> penaltyOptional = penaltyRepository.findById(penaltyId);
+        Optional<Penalty> penaltyOptional = penaltyQueryRepository.findById(penaltyId);
         if (!penaltyOptional.isPresent()) {
             res = ObjectionPenaltyResponseDto.builder()
                     .code(HttpServletResponse.SC_BAD_REQUEST)
@@ -143,7 +145,7 @@ public class PenaltyService {
     @Transactional
     public AdmitPenaltyResponseDto admitPenalty(UserDetailsImpl userDetails,Long penaltyId){
         AdmitPenaltyResponseDto res;
-        Optional<Penalty> penaltyOptional = penaltyRepository.findById(penaltyId);
+        Optional<Penalty> penaltyOptional = penaltyQueryRepository.findById(penaltyId);
         if(!penaltyOptional.isPresent()){
             res = AdmitPenaltyResponseDto.builder()
                     .code(HttpServletResponse.SC_BAD_REQUEST)

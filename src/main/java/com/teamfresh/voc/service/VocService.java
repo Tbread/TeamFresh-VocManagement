@@ -27,7 +27,6 @@ public class VocService {
     private final VocRepository vocRepository;
     private final CompanyQueryRepository companyQueryRepository;
     private final CompensationRepository compensationRepository;
-    private final DriverRepository driverRepository;
 
     @Transactional
     public NewVocResponseDto newVoc(NewVocRequestDto req, BindingResult bindingResult) {
